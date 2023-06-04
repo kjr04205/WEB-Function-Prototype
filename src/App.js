@@ -35,5 +35,13 @@ function Contact(){
     </div>
   )
 }
+function Contact2(){
+  return (
+    <div>
+      <h2>Contact2</h2>
+      <p>Contact2......</p>
+    </div>
+  )
+}
 
 export default App;
