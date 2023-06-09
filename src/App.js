@@ -18,18 +18,21 @@ function App() {
   const [users, setUsers] = useState([
     {
       id: 1,
-      username: 'hyo',
-      email: 'hyo1@test.com'
+      username: 'velopert',
+      email: 'public.velopert@gmail.com',
+      active: true
     },
     {
       id: 2,
-      username: 'in',
-      email: 'in1@test.com'
+      username: 'tester',
+      email: 'tester@example.com',
+      active: false
     },
     {
       id: 3,
-      username: 'an',
-      email: 'an1@test.com'
+      username: 'liz',
+      email: 'liz@example.com',
+      active: false
     }
   ]);
 
@@ -40,14 +43,27 @@ function App() {
       username,
       email
     };
-    setUsers([...users, user]);
+    setUsers(users.concat(user));
+
     setInputs({
       username: '',
       email: ''
     });
     nextId.current += 1;
-  }
+  };
 
+  const onRemove = id => {
+    // user.id 가 파라미터로 일치하지 않는 원소만 추출해서 새로운 배열을 만듬
+    // = user.id 가 id 인 것을 제거함
+    setUsers(users.filter(user => user.id !== id));
+  };
+  const onToggle = id => {
+    setUsers(
+      users.map(user =>
+        user.id === id ? { ...user, active: !user.active } : user
+      )
+    );
+  };
   return (
     <>
       <CreateUser
@@ -56,7 +72,7 @@ function App() {
         onChange={onChange}
         onCreate={onCreate}
       />
-      <UserList users={users} />
+      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
     </>
   );
 }
