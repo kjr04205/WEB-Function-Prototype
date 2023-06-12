@@ -1,5 +1,11 @@
-.gray-box{
-  background: gray;
-  width: 64px;
-  height: 64px;
+.test{
+  max-width:500px;
+  max-height:500px;
+  width:100%;
+  flex-direction:row;
+}
+.box{
+  width:200px;
+  height:200px;
+  border:1px solid black;
 }
