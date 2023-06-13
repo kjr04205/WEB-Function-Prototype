@@ -1,23 +1,94 @@
-import React from 'react';
-import ScrollableContainer from './ScrollableContainer';
+import React, { useRef, useState, useMemo, useCallback } from 'react';
+import UserList from './UserList';
+import CreateUser from './CreateUser';
 
-const App = () => {
-  return (
-    <div>
-      <h1>overflow 버튼 스크롤 테스트</h1>
-      <ScrollableContainer>
-        <div style={{ display: 'flex' }}>
-          {/* Your content goes here */}
-          <div style={{ width: '200px', height: '100px', background: 'red', margin: '10px' }}></div>
-          <div style={{ width: '200px', height: '100px', background: 'blue', margin: '10px' }}></div>
-          <div style={{ width: '200px', height: '100px', background: 'green', margin: '10px' }}></div>
-          <div style={{ width: '200px', height: '100px', background: 'yellow', margin: '10px' }}></div>
-          <div style={{ width: '200px', height: '100px', background: 'orange', margin: '10px' }}></div>
-          <div style={{ width: '200px', height: '100px', background: 'purple', margin: '10px' }}></div>
-        </div>
-      </ScrollableContainer>
-    </div>
+function countActiveUsers(users) {
+  console.log('활성 사용자 수를 세는중...');
+  return users.filter(user => user.active).length;
+}
+
+function App() {
+  const [inputs, setInputs] = useState({
+    username: '',
+    email: ''
+  });
+  const { username, email } = inputs;
+  const onChange = useCallback(
+    e => {
+      const { name, value } = e.target;
+      setInputs({
+        ...inputs,
+        [name]: value
+      });
+    },
+    [inputs]
   );
-};
+  const [users, setUsers] = useState([
+    {
+      id: 1,
+      username: 'tester1',
+      email: 'tester@gmail.com',
+      active: true
+    },
+    {
+      id: 2,
+      username: 'tester2',
+      email: 'tester@example.com',
+      active: false
+    },
+    {
+      id: 3,
+      username: 'tester3',
+      email: 'tester@example.com',
+      active: false
+    }
+  ]);
+
+  const nextId = useRef(4);
+  const onCreate = useCallback(() => {
+    const user = {
+      id: nextId.current,
+      username,
+      email
+    };
+    setUsers(users.concat(user));
+
+    setInputs({
+      username: '',
+      email: ''
+    });
+    nextId.current += 1;
+  }, [users, username, email]);
+
+  const onRemove = useCallback(
+    id => {
+      setUsers(users.filter(user => user.id !== id));
+    },
+    [users]
+  );
+  const onToggle = useCallback(
+    id => {
+      setUsers(
+        users.map(user =>
+          user.id === id ? { ...user, active: !user.active } : user
+        )
+      );
+    },
+    [users]
+  );
+  const count = useMemo(() => countActiveUsers(users), [users]);
+  return (
+    <>
+      <CreateUser
+        username={username}
+        email={email}
+        onChange={onChange}
+        onCreate={onCreate}
+      />
+      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
+      <div>활성 사용자 : {count}</div>
+    </>
+  );
+}
 
 export default App;
