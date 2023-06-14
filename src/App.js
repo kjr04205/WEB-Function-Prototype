@@ -1,94 +1,22 @@
-import React, { useRef, useState, useMemo, useCallback } from 'react';
-import UserList from './UserList';
-import CreateUser from './CreateUser';
-
-function countActiveUsers(users) {
-  console.log('활성 사용자 수를 세는중...');
-  return users.filter(user => user.active).length;
-}
-
-function App() {
-  const [inputs, setInputs] = useState({
-    username: '',
-    email: ''
-  });
-  const { username, email } = inputs;
-  const onChange = useCallback(
-    e => {
-      const { name, value } = e.target;
-      setInputs({
-        ...inputs,
-        [name]: value
-      });
-    },
-    [inputs]
-  );
-  const [users, setUsers] = useState([
-    {
-      id: 1,
-      username: 'tester1',
-      email: 'tester@gmail.com',
-      active: true
-    },
-    {
-      id: 2,
-      username: 'tester2',
-      email: 'tester@example.com',
-      active: false
-    },
-    {
-      id: 3,
-      username: 'tester3',
-      email: 'tester@example.com',
-      active: false
-    }
-  ]);
-
-  const nextId = useRef(4);
-  const onCreate = useCallback(() => {
-    const user = {
-      id: nextId.current,
-      username,
-      email
-    };
-    setUsers(users.concat(user));
-
-    setInputs({
-      username: '',
-      email: ''
-    });
-    nextId.current += 1;
-  }, [users, username, email]);
-
-  const onRemove = useCallback(
-    id => {
-      setUsers(users.filter(user => user.id !== id));
-    },
-    [users]
-  );
-  const onToggle = useCallback(
-    id => {
-      setUsers(
-        users.map(user =>
-          user.id === id ? { ...user, active: !user.active } : user
-        )
-      );
-    },
-    [users]
-  );
-  const count = useMemo(() => countActiveUsers(users), [users]);
+import React from 'react';
+import ScrollableContainer from './ScrollableContainer';
+import './App.css';
+const App = () => {
   return (
-    <>
-      <CreateUser
-        username={username}
-        email={email}
-        onChange={onChange}
-        onCreate={onCreate}
-      />
-      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
-      <div>활성 사용자 : {count}</div>
-    </>
+    <div>
+      <h1>overflow 버튼 스크롤 테스트</h1>
+      <ScrollableContainer>
+        <div className="boxWrap">
+          <div className="box" style={{ background: 'red'}}></div>
+          <div className="box" style={{ background: 'blue'}}></div>
+          <div className="box" style={{ background: 'green'}}></div>
+          <div className="box" style={{ background: 'yellow'}}></div>
+          <div className="box" style={{ background: 'orange'}}></div>
+          <div className="box" style={{ background: 'purple'}}></div>
+        </div>
+      </ScrollableContainer>
+    </div>
   );
-}
+};
 
 export default App;

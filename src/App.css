@@ -1,11 +1,38 @@
-.test{
-  max-width:500px;
-  max-height:500px;
-  width:100%;
-  flex-direction:row;
+.container{
+  overflow-x: auto;
+  width: 500px;
+  position:relative;
+}
+
+.container-wrap {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.btnArrow {
+  position: absolute;
+  top: 0px;
+  width: 30px;
+  height: 100px;
+  opacity: 0.5;
+  background-color: #fff;
+  border: none;
+}
+
+.leftBtn {
+  left: 0;
+}
+
+.rightBtn {
+  right: 0;
+}
+
+.boxWrap{
+  display:flex;
 }
 .box{
-  width:200px;
-  height:200px;
-  border:1px solid black;
+  width: 200px;
+  height:100px;
+  margin: 10px;
 }
