@@ -1,22 +1,23 @@
 import React from 'react';
-import ScrollableContainer from './ScrollableContainer';
-import './App.css';
-const App = () => {
+import { createGlobalStyle } from 'styled-components';
+import TodoTemplate from './components/TodoTemplate';
+import TodoHead from './components/TodoHead';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #e9ecef;
+  }
+`;
+
+function App() {
   return (
-    <div>
-      <h1>overflow 버튼 스크롤 테스트</h1>
-      <ScrollableContainer>
-        <div className="boxWrap">
-          <div className="box" style={{ background: 'red'}}></div>
-          <div className="box" style={{ background: 'blue'}}></div>
-          <div className="box" style={{ background: 'green'}}></div>
-          <div className="box" style={{ background: 'yellow'}}></div>
-          <div className="box" style={{ background: 'orange'}}></div>
-          <div className="box" style={{ background: 'purple'}}></div>
-        </div>
-      </ScrollableContainer>
-    </div>
+    <>
+      <GlobalStyle />
+      <TodoTemplate>
+        <TodoHead />
+      </TodoTemplate>
+    </>
   );
-};
+}
 
 export default App;
