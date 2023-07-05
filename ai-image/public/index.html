@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Image Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>OpenAI Image Generator</h1>
+        <section>
+            <form id="image-form">
+                <div>
+                    <input type="text" class="text" id="text" placeholder="이미지 설명을 입력해주세요.">
+                </div>
+                <button type="submit" class="btn">생성하기</button>
+            </form>
+        </section>
+
+        <section class="image_wrap">
+            <h2 class="msg"></h2>
+            <figure>
+                <img src="" alt="" id="image" />
+            </figure>
+            <p class="loading">이미지 생성 중....</p>
+        </section>
+
+        <footer>
+            <p><a href="https://beta.openai.com/docs" target="_blank">
+                    Powered By OpenAI
+                </a></p>
+        </footer>
+    </div>
+    
+    <script src="./main.js"></script>
+
+</body>
+
+</html>
