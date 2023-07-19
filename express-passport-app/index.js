@@ -4,14 +4,17 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 
-// Mongo Atlas
-mongoose.connect(`mongodb-uri:`);
-
 const port = 4000;
 
 app.get('/user/:id', function(req, res){
-    //res.send('USER = ' + id);
+    const userID = req.params.id;
+    res.send('userID = ' + userID);
 })
+app.get('/user/:passport', function(req, res){
+    const userPassport = req.params.passport;
+    res.send('userPassport = ' + userPassport);
+})
+
 app.listen(port, () => {
     console.log(`Listening on ${port}`);
 })
