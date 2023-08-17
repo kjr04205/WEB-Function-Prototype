@@ -1,19 +1,13 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import React from 'react'
 
-//SSR - Server Side Render
-export async function getServerSideProps() {
-  console.log('server에서 동작')
+//SSG
+export async function getStaticProps() {
+  console.log('server static')
   return {
     props: { time: new Date().toISOString() }
   }
 }
-
-//CSR - Client Side Render
-//SSG - (Static-Site Generation)
-//ISR - Incremental Static Regeneration
-export default function Home({ time }) {
+export default function SSG({ time }) {
   return (
     <div className="container">
       <Head>
@@ -25,9 +19,6 @@ export default function Home({ time }) {
         <h1 className="title">
           {time}
         </h1>
-        <h1><Link href="/csr">CSR로</Link></h1>
-        <h1><Link href="/ssg">SSG로</Link></h1>
-        <h1><Link href="/isr">ISR로</Link></h1>
       </main>
 
       <footer>

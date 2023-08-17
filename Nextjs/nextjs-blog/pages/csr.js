@@ -1,19 +1,15 @@
 import Head from 'next/head';
-import Link from 'next/link';
-import React from 'react'
-
-//SSR - Server Side Render
-export async function getServerSideProps() {
-  console.log('server에서 동작')
-  return {
-    props: { time: new Date().toISOString() }
-  }
-}
+import {useEffect, useState} from 'react';
 
 //CSR - Client Side Render
-//SSG - (Static-Site Generation)
-//ISR - Incremental Static Regeneration
-export default function Home({ time }) {
+export default function CSR() {
+  const [time, setTime] = useState()
+
+  useEffect(()=>{
+    console.log('client에서 동작')
+    setTime(new Date().toISOString())
+  }, [])
+
   return (
     <div className="container">
       <Head>
@@ -25,9 +21,6 @@ export default function Home({ time }) {
         <h1 className="title">
           {time}
         </h1>
-        <h1><Link href="/csr">CSR로</Link></h1>
-        <h1><Link href="/ssg">SSG로</Link></h1>
-        <h1><Link href="/isr">ISR로</Link></h1>
       </main>
 
       <footer>
